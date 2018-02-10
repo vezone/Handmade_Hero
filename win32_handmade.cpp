@@ -494,12 +494,12 @@ int CALLBACK WinMain(
 #if INTERNAL_BUILD == 0
 			LPVOID BaseAddress = 0;
 #else
-			LPVOID BaseAddress = (LPVOID)Gigabytes((uint64)500);
+			LPVOID BaseAddress = (LPVOID)Gigabytes(500);
 #endif
-
+			
 			game_memory GameMemory = {};
 			GameMemory.PermanentStorageSize = Megabytes(64);
-			GameMemory.TransientStorageSize = Gigabytes((uint64)4);
+			GameMemory.TransientStorageSize = Gigabytes(4);
 			
 			uint64 TotalSize = GameMemory.PermanentStorageSize +
 				GameMemory.TransientStorageSize;
@@ -507,8 +507,8 @@ int CALLBACK WinMain(
 			GameMemory.PermanentStorage =
 				VirtualAlloc(BaseAddress, TotalSize,
 					MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-			GameMemory.TransientStorage = (uint8*)GameMemory.PermanentStorage +
-				GameMemory.PermanentStorageSize;
+			GameMemory.TransientStorage = ((uint8*)GameMemory.PermanentStorage +
+				GameMemory.PermanentStorageSize);
 			
 
 			game_input Input[2] = {};
